@@ -42,7 +42,7 @@ class WorkoutViewModel extends BaseViewModel {
   ///
   validateForm() {
     return (editedWorkout!.name ?? '').length >= 4 &&
-        (workout!.sets ?? []).isNotEmpty;
+        (editedWorkout!.sets ?? []).isNotEmpty;
   }
 
   /// Display a message to the user if the form fails validation
