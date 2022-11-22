@@ -5,21 +5,26 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i4;
+import 'package:flutter/material.dart' as _i5;
 import 'package:flutter/material.dart';
+import 'package:magic_test/models/workout.dart' as _i6;
+import 'package:magic_test/screens/workout/workout_set_view.dart' as _i4;
 import 'package:magic_test/screens/workout/workout_view.dart' as _i3;
 import 'package:magic_test/screens/workout_list/workout_list_view.dart' as _i2;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i5;
+import 'package:stacked_services/stacked_services.dart' as _i7;
 
 class Routes {
   static const workoutListView = '/';
 
   static const workoutView = '/workout-view';
 
+  static const workoutSetView = '/workout-set-view';
+
   static const all = <String>{
     workoutListView,
     workoutView,
+    workoutSetView,
   };
 }
 
@@ -33,15 +38,16 @@ class StackedRouter extends _i1.RouterBase {
       Routes.workoutView,
       page: _i3.WorkoutView,
     ),
+    _i1.RouteDef(
+      Routes.workoutSetView,
+      page: _i4.WorkoutSetView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.WorkoutListView: (data) {
-      final args = data.getArgs<WorkoutListViewArguments>(
-        orElse: () => const WorkoutListViewArguments(),
-      );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => _i2.WorkoutListView(key: args.key),
+        builder: (context) => const _i2.WorkoutListView(),
         settings: data,
       );
     },
@@ -50,7 +56,18 @@ class StackedRouter extends _i1.RouterBase {
         orElse: () => const WorkoutViewArguments(),
       );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => _i3.WorkoutView(key: args.key),
+        builder: (context) =>
+            _i3.WorkoutView(key: args.key, workout: args.workout),
+        settings: data,
+      );
+    },
+    _i4.WorkoutSetView: (data) {
+      final args = data.getArgs<WorkoutSetViewArguments>(
+        orElse: () => const WorkoutSetViewArguments(),
+      );
+      return MaterialPageRoute<dynamic>(
+        builder: (context) =>
+            _i4.WorkoutSetView(key: args.key, workoutSet: args.workoutSet),
         settings: data,
       );
     },
@@ -62,29 +79,37 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-class WorkoutListViewArguments {
-  const WorkoutListViewArguments({this.key});
-
-  final _i4.Key? key;
-}
-
 class WorkoutViewArguments {
-  const WorkoutViewArguments({this.key});
+  const WorkoutViewArguments({
+    this.key,
+    this.workout,
+  });
 
-  final _i4.Key? key;
+  final _i5.Key? key;
+
+  final _i6.Workout? workout;
 }
 
-extension NavigatorStateExtension on _i5.NavigationService {
-  Future<dynamic> navigateToWorkoutListView({
-    _i4.Key? key,
+class WorkoutSetViewArguments {
+  const WorkoutSetViewArguments({
+    this.key,
+    this.workoutSet,
+  });
+
+  final _i5.Key? key;
+
+  final _i6.WorkoutSet? workoutSet;
+}
+
+extension NavigatorStateExtension on _i7.NavigationService {
+  Future<dynamic> navigateToWorkoutListView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  }) async {
+  ]) async {
     return navigateTo<dynamic>(Routes.workoutListView,
-        arguments: WorkoutListViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -92,7 +117,8 @@ extension NavigatorStateExtension on _i5.NavigationService {
   }
 
   Future<dynamic> navigateToWorkoutView({
-    _i4.Key? key,
+    _i5.Key? key,
+    _i6.Workout? workout,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -100,7 +126,24 @@ extension NavigatorStateExtension on _i5.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.workoutView,
-        arguments: WorkoutViewArguments(key: key),
+        arguments: WorkoutViewArguments(key: key, workout: workout),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToWorkoutSetView({
+    _i5.Key? key,
+    _i6.WorkoutSet? workoutSet,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.workoutSetView,
+        arguments: WorkoutSetViewArguments(key: key, workoutSet: workoutSet),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

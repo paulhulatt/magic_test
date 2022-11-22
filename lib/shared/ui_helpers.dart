@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:magic_test/shared/colors.dart';
 
 const Widget horizontalSpaceMin = SizedBox(width: 1.0);
@@ -48,12 +49,24 @@ double twoThirdsScreenWidth(BuildContext context) =>
 
 double scaleByScreenSize(BuildContext context, double size) {
   // print('${screenWidth(context)} $kMaxWidth ${(min(screenWidth(context), kMaxWidth) / kMaxWidth)} = ${(min(screenWidth(context), kMaxWidth) / kMaxWidth) * size}');
-  return (screenWidth(context) / 1200.0) * size;
+  return (screenHeight(context) / 1200.0) * size;
 }
 
-TextStyle bodyStyle = TextStyle(
+EdgeInsets defaultPadding(BuildContext context) {
+  return EdgeInsets.all(
+      min(screenWidth(context) / 30, screenHeight(context) / 30));
+}
+
+const TextStyle bodyStyle = TextStyle(
     fontSize: 18.0, color: kLightBlueColor, fontWeight: FontWeight.w400);
-TextStyle headStyle = TextStyle(
+const headStyle = TextStyle(
     fontSize: 28.0, color: kLightBlueColor, fontWeight: FontWeight.w500);
-TextStyle subStyle =
+const TextStyle subStyle =
     TextStyle(fontSize: 20.0, color: kWhiteColor, fontWeight: FontWeight.w600);
+
+const TextStyle labelStyle = TextStyle(
+    fontSize: 16.0, color: kLightBlueColor, fontWeight: FontWeight.w300);
+
+String formatDate(DateTime date) {
+  return DateFormat('dd MMMM yyyy').format(date);
+}

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-Color kBlackColor = Colors.black;
-Color kWhiteColor = Colors.white;
-Color kLightBlueColor = Colors.blue.shade200;
+const Color kBlackColor = Color.fromARGB(255, 0, 0, 0);
+const Color kWhiteColor = Color.fromARGB(255, 255, 255, 255);
+const Color kLightBlueColor = Color.fromARGB(255, 94, 212, 252);
 
-Color kBackgroundColor = kBlackColor;
+const Color kBackgroundColor = kBlackColor;
 
-Color kPrimaryColor = kLightBlueColor;
+const Color kPrimaryColor = kLightBlueColor;

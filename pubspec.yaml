@@ -32,11 +32,15 @@ dependencies:
   flutter:
     sdk: flutter
 
+  intl:
+
   # Implement the stacked & stacked_services for easier implementation of a clean MVVM achitecture
   stacked: ^3.0.0
   stacked_services: ^0.9.8
 
-  localstorage: ^4.0.0+1
+  shared_preferences: ^2.0.15
+
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:
@@ -50,7 +54,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
   build_runner: 
-  stacked_generator: 
+  stacked_generator:
+  mockito:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
