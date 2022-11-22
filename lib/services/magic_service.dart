@@ -34,12 +34,16 @@ class MagicService {
 
   // For ease & speed the following are included in this service but in the wild additional services would exist for Workout local management and database interface
 
+  /// Retrieve the users list of Workouts - In this case we'll pull them from SharedPrefs
+  ///
   Future getWorkouts() async {
     List<String>? data = sharedPreferences!.getStringList('workouts') ?? [];
     workouts =
         data.map((workout) => Workout.fromJson(jsonDecode(workout))).toList();
   }
 
+  /// Add this Workout to the Users list and then update
+  ///
   saveWorkout(Workout workout) async {
     if (workout.id == null) {
       workout.id = uuid.v4();
@@ -52,12 +56,18 @@ class MagicService {
     await saveWorkouts();
   }
 
+  /// Permanently remove the passed Workout from the Users list and update
+  ///
+  /// Depending on the use-case you may only mark as deleted
+  ///
   removeWorkout(Workout workout) async {
     workouts!.removeWhere((_) => _.id == workout.id);
 
     await saveWorkouts();
   }
 
+  /// Save the users list of Workouts
+  ///
   saveWorkouts() async {
     List<String> data =
         workouts!.map((workout) => jsonEncode(workout.toJson())).toList();
